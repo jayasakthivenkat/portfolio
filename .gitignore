@@ -1,0 +1,27 @@
+.gitignore file already configured for both backend and frontend
+
+# Backend (.gitignore)
+- node_modules/
+- .env and environment files
+- Log files
+- OS files (.DS_Store)
+- IDE files (.vscode, .idea)
+
+# Frontend (.gitignore)
+- node_modules/
+- dist/ (build output)
+- .env.local and environment files
+- Log files
+- OS files (.DS_Store)
+- IDE files (.vscode, .idea)
+
+To initialize git:
+```bash
+cd portfolio\ website
+git init
+git add .
+git commit -m "Initial commit: Full-stack portfolio website"
+git branch -M main
+git remote add origin https://github.com/yourusername/portfolio-website.git
+git push -u origin main
+```

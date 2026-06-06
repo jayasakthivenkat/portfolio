@@ -1,0 +1,17 @@
+{
+  "name": "portfolio-backend",
+  "description": "Full-Stack Portfolio Website Backend",
+  "buildCommand": "npm install",
+  "startCommand": "npm start",
+  "env": {
+    "MONGODB_URI": {
+      "description": "MongoDB connection string"
+    },
+    "JWT_SECRET": {
+      "description": "JWT secret key"
+    },
+    "PORT": {
+      "value": "5000"
+    }
+  }
+}
