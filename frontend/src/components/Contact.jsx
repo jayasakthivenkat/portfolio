@@ -1,156 +1,129 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../hooks';
-import { contactAPI } from '../services';
-import { FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
+import { portfolioData } from '../data/portfolioData';
+import { FaEnvelope, FaLinkedin, FaGithub } from 'react-icons/fa';
+import DownloadResume from './DownloadResume';
 
 const Contact = () => {
   const { isDarkMode } = useTheme();
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: '',
-  });
-  const [status, setStatus] = useState(null);
-  const [loading, setLoading] = useState(false);
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-
-    try {
-      await contactAPI.submit(formData);
-      setStatus('success');
-      setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
-      setTimeout(() => setStatus(null), 3000);
-    } catch (error) {
-      setStatus('error');
-      setTimeout(() => setStatus(null), 3000);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { email, linkedin, github } = portfolioData.personalInfo;
 
   return (
-    <section
-      id="contact"
-      className={`py-20 ${isDarkMode ? 'bg-dark-bg' : 'bg-light-bg'}`}
-    >
+    <section id="contact" className="py-20">
       <div className="container-custom">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-4xl font-bold mb-12 text-center text-gradient"
-        >
+        <h2 className="text-4xl font-bold mb-12 text-center text-gradient">
           Get In Touch
-        </motion.h2>
-
-        <div className="max-w-2xl mx-auto">
-          <motion.form
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+        </h2>
+        
+        <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+          {/* Contact Information */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            onSubmit={handleSubmit}
-            className={`p-8 rounded-lg ${isDarkMode ? 'glass-dark' : 'glass'}`}
           >
-            <div className="grid md:grid-cols-2 gap-6 mb-6">
-              <input
-                type="text"
-                name="name"
-                placeholder="Your Name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                className={`px-4 py-3 rounded-lg bg-transparent border ${
-                  isDarkMode ? 'border-gray-700 focus:border-primary' : 'border-gray-300 focus:border-primary'
-                } focus:outline-none transition-colors`}
-              />
-              <input
-                type="email"
-                name="email"
-                placeholder="Your Email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className={`px-4 py-3 rounded-lg bg-transparent border ${
-                  isDarkMode ? 'border-gray-700 focus:border-primary' : 'border-gray-300 focus:border-primary'
-                } focus:outline-none transition-colors`}
-              />
+            <h3 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+              Contact Information
+            </h3>
+            <p className="text-lg text-gray-700 dark:text-gray-300 mb-8 leading-relaxed">
+              I am currently open to new opportunities and collaborations. Whether you have a question or just want to say hi, I'll try my best to get back to you!
+            </p>
+            
+            <div className="space-y-6">
+              <a href={`mailto:${email}`} className="flex items-center gap-4 group">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+                  <FaEnvelope size={20} />
+                </div>
+                <div>
+                  <h4 className="text-gray-500 dark:text-gray-400 text-sm font-medium">Email</h4>
+                  <p className="text-gray-900 dark:text-white font-semibold">{email}</p>
+                </div>
+              </a>
+              
+              <a href={linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+                  <FaLinkedin size={20} />
+                </div>
+                <div>
+                  <h4 className="text-gray-500 dark:text-gray-400 text-sm font-medium">LinkedIn</h4>
+                  <p className="text-gray-900 dark:text-white font-semibold">Jaya Sakthi</p>
+                </div>
+              </a>
+              
+              <a href={github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+                  <FaGithub size={20} />
+                </div>
+                <div>
+                  <h4 className="text-gray-500 dark:text-gray-400 text-sm font-medium">GitHub</h4>
+                  <p className="text-gray-900 dark:text-white font-semibold">jayasakthivenkat</p>
+                </div>
+              </a>
             </div>
-
-            <div className="grid md:grid-cols-2 gap-6 mb-6">
-              <input
-                type="tel"
-                name="phone"
-                placeholder="Your Phone (Optional)"
-                value={formData.phone}
-                onChange={handleChange}
-                className={`px-4 py-3 rounded-lg bg-transparent border ${
-                  isDarkMode ? 'border-gray-700 focus:border-primary' : 'border-gray-300 focus:border-primary'
-                } focus:outline-none transition-colors`}
-              />
-              <input
-                type="text"
-                name="subject"
-                placeholder="Subject"
-                value={formData.subject}
-                onChange={handleChange}
-                required
-                className={`px-4 py-3 rounded-lg bg-transparent border ${
-                  isDarkMode ? 'border-gray-700 focus:border-primary' : 'border-gray-300 focus:border-primary'
-                } focus:outline-none transition-colors`}
-              />
-            </div>
-
-            <textarea
-              name="message"
-              placeholder="Your Message"
-              rows="6"
-              value={formData.message}
-              onChange={handleChange}
-              required
-              className={`w-full px-4 py-3 rounded-lg bg-transparent border ${
-                isDarkMode ? 'border-gray-700 focus:border-primary' : 'border-gray-300 focus:border-primary'
-              } focus:outline-none transition-colors mb-6 resize-none`}
-            />
-
-            {status === 'success' && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="flex items-center gap-2 text-success mb-4"
+          </motion.div>
+          
+          {/* Contact Form (UI only as per instructions) */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className={`p-8 rounded-2xl ${isDarkMode ? 'glass-dark' : 'glass shadow-lg'}`}
+          >
+            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  className={`w-full px-4 py-3 rounded-lg focus:ring-2 focus:ring-primary outline-none transition-all ${
+                    isDarkMode ? 'bg-dark-bg border-gray-700 text-white' : 'bg-white border-gray-200 text-gray-900 border'
+                  }`}
+                  placeholder="Your Name"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  className={`w-full px-4 py-3 rounded-lg focus:ring-2 focus:ring-primary outline-none transition-all ${
+                    isDarkMode ? 'bg-dark-bg border-gray-700 text-white' : 'bg-white border-gray-200 text-gray-900 border'
+                  }`}
+                  placeholder="Your Email"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Message</label>
+                <textarea
+                  id="message"
+                  rows="4"
+                  className={`w-full px-4 py-3 rounded-lg focus:ring-2 focus:ring-primary outline-none transition-all resize-none ${
+                    isDarkMode ? 'bg-dark-bg border-gray-700 text-white' : 'bg-white border-gray-200 text-gray-900 border'
+                  }`}
+                  placeholder="Your Message"
+                ></textarea>
+              </div>
+              
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                type="submit"
+                className="w-full py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition-colors"
+                onClick={() => alert('Thanks for reaching out! (This is a demo form)')}
               >
-                <FaCheckCircle /> Message sent successfully!
-              </motion.div>
-            )}
-
-            {status === 'error' && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="flex items-center gap-2 text-error mb-4"
-              >
-                <FaExclamationCircle /> Failed to send message. Please try again.
-              </motion.div>
-            )}
-
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              type="submit"
-              disabled={loading}
-              className="w-full px-8 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark disabled:opacity-50"
-            >
-              {loading ? 'Sending...' : 'Send Message'}
-            </motion.button>
-          </motion.form>
+                Send Message
+              </motion.button>
+            </form>
+          </motion.div>
+        </div>
+        
+        <div className="mt-16 flex justify-center">
+          <DownloadResume />
         </div>
       </div>
     </section>

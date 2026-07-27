@@ -4,12 +4,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#6366f1',
-        accent: '#ec4899',
-        dark: '#0f172a',
+        primary: '#0d9488', // Teal 600
+        accent: '#14b8a6',  // Turquoise/Teal 500
+        dark: '#030712',    // Deep Black
       },
       fontFamily: {
-        sans: ['Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif'],
+        sans: ['Inter', 'Outfit', 'Segoe UI', 'Tahoma', 'sans-serif'],
       },
     },
   },

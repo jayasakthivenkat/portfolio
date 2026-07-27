@@ -1,29 +1,17 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
-import About from '../components/About';
-import Skills from '../components/Skills';
-import Projects from '../components/Projects';
-import Experience from '../components/Experience';
-import Certifications from '../components/Certifications';
-import Services from '../components/Services';
-import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 
 const Home = () => {
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Navbar />
-      <Hero />
-      <About />
-      <Skills />
-      <Projects />
-      <Experience />
-      <Certifications />
-      <Services />
-      <Contact />
+      <main className="flex-grow">
+        <Hero />
+      </main>
       <Footer />
-    </>
+    </div>
   );
 };
 
