@@ -2,19 +2,15 @@
  * Services component
  */
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../hooks';
-import { serviceAPI } from '../services';
+import { portfolioData } from '../data/portfolioData';
 import { FaBriefcase } from 'react-icons/fa';
 
 const Services = () => {
   const { isDarkMode } = useTheme();
-  const [services, setServices] = useState([]);
-
-  useEffect(() => {
-    serviceAPI.getAll().then((res) => setServices(res.data.services));
-  }, []);
+  const { services } = portfolioData;
 
   return (
     <section
